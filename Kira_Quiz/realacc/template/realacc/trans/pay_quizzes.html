@@ -1,0 +1,15 @@
+
+{% extends 'realacc/trans/base.html' %}
+{% block content %}
+<h4>All your Payments for Quizzes</h4>
+<ul>
+    {% for payquiz in payquizzes %}
+    <li>Amount: Rw{{ payquiz.amount }} - Transaction date: {{ payquiz.timestamp }}</li>
+    {% endfor %}
+</ul>
+<br>
+<button>
+    <a href="{% url 'real_account' %}">Go Back</a>
+</button>
+{% endblock %}
+

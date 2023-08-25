@@ -1,0 +1,15 @@
+
+{% extends 'realacc/trans/base.html' %}
+{% block content %}
+<h4>All your Deposit</h4>
+<ul>
+    {% for deposit in deposits %}
+    <li>Amount: Rw{{ deposit.amount }} - Transaction date: {{ deposit.timestamp }}</li>
+    {% endfor %}
+</ul>
+<br>
+<button>
+    <a href="{% url 'real_account' %}">Go Back</a>
+</button>
+{% endblock %}
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .dashboard-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #777;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome to the User Dashboard</h1>
+        <p>This is the home page for the user dashboard.</p>
+        <p>You can navigate to different sections using the links below:</p>
+        <ul>
+            <li><a href="{% url 'userdash:user_profile'  %}">View User Profile</a></li>
+            <li><a href="{% url 'real_account' %}">Real Account</a></li>
+            <li><a href="{% url 'userdash:demo_account' %}">Demo Account</a></li>
+            <li><a href="{% url 'userdash:quizzes' %}">Quizzes</a></li>
+            <li><a href="{% url 'welcomepage'%}">Logout</a></li>
+        </ul>
+    </div>
+</body>
+</html>
+

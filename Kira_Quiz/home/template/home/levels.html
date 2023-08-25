@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kira | Levels</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h4, h5 {
+            margin: 10px 0;
+        }
+        button a {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        button a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hitamo Ikiciro</h1>
+        <button><a href="{% url 'level_0' %}">Level 0</a></button>
+        <h4>Amafaranga(100-500)</h4>
+        <button><a href="{% url 'level_1' %}">Level 1</a></button>
+        <h5>amafaranga (1000-5000)</h5>
+        <button><a href="{% url 'level_2' %}">Level 2</a></button>
+        <h5>Amafaranga (10,000-50,000)</h5>
+        
+        <br>
+        <button>
+            <a href="{% url 'real_account' %}">Real Account</a>
+        </button>
+        <br>
+        <br>
+        <button>
+            <a href="{% url 'userdash:userdash_home' %}">User Dashboard</a>
+        </button>
+    </div>
+</body>
+</html>

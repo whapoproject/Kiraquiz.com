@@ -1,0 +1,15 @@
+
+{% extends 'realacc/trans/base.html' %}
+{% block content %}
+<h4>All your Withdraws </h4>
+<ul>
+    {% for withdraw in withdraws %}
+    <li>Amount: Rw{{ withdraw.amount }} - Transaction date: {{ withdraw.timestamp }}</li>
+    {% endfor %}
+</ul>
+<br>
+<button>
+    <a href="{% url 'real_account' %}">Go Back</a>
+</button>
+{% endblock %}
+

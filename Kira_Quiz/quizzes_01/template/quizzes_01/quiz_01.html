@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz | Level 1</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+       
+     
+        .quiz-section {
+            margin-bottom: 30px;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .question-text {
+            font-weight: bold;
+        }
+        .answer-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .answer-label input[type="radio"] {
+            margin-right: 5px;
+        }
+        .overall-timer {
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, green 100%, green 100%);
+            transition: background-color 1s ease-in-out;
+        }
+        .submit-button {
+            display: block;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .halfway-notified::before {
+            content: "Halfway! Be prepared to submit.";
+            display: block;
+            position: absolute;
+            top: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: red;
+        }
+    </style>
+    <script>
+        console.log("Script loaded and executed!");
+
+        function startTimer(duration, element) {
+            let timer = duration, minutes, seconds;
+            const timerInterval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                element.textContent = minutes + ":" + seconds;
+
+                if (timer <= duration / 2) {
+                    const colorPercent = (timer / (duration / 2)) * 100;
+                    element.style.background = `linear-gradient(to right, red ${colorPercent}%, green ${colorPercent}%)`;
+                    if (!element.classList.contains("halfway-notified")) {
+                        element.classList.add("halfway-notified");
+                        alert("The timer is at half. Be prepared to submit your answers.");
+                    }
+                }
+
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    document.querySelector("#quiz-form").submit();
+                }
+            }, 1000);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const overallTimerElement = document.querySelector(".overall-timer");
+            const totalDuration = parseInt(overallTimerElement.getAttribute("data-total-duration"), 10);
+            startTimer(totalDuration, overallTimerElement);
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-header">
+            <h2>Quiz Paper for Level 1</h2>
+            <h3>Good Luck!</h3>
+            <h4>The More you learn, The More you earn</h4>
+        </div>
+        <div class="user-header">
+            <span class="user-name">Name: <b>{{ user.username }}</b></span>
+            <br>
+            <span>Duration: <b>{{ total_quiz_duration }} Seconds</b></span>
+            <div class="overall-timer" data-total-duration="{{ total_quiz_duration }}"></div>
+        </div>
+        
+        <div class="quiz-instructions">
+            <p><b>Instructions:</b></p>
+            <ul>
+                <li>Read each question carefully before selecting an answer.</li>
+                <li>You have limited time for the entire quiz.</li>
+                <li>Submit your answers before the time runs out.</li>
+            </ul>
+        </div>
+
+        <div class="quiz-section">
+            <h3>Section 1: Select a Quiz Type</h3>
+            <form method="get" action="{% url 'quiz_view_01' %}">
+                <label for="quiz_type_01">Select a Quiz Type:</label>
+                <select name="quiz_type_01" id="quiz_type_01">
+                    <option value="">All Quiz Types</option>
+                    {% for quiz_type in quiz_types %}
+                        <option value="{{ quiz_type.id }}" {% if selected_quiz_type_id == quiz_type.id %}selected{% endif %}>{{ quiz_type.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="submit-button">Start Quiz</button>
+            </form>
+        </div>
+        
+        {% if selected_quiz_type_id %}
+            {% if questionss %}
+                <div class="quiz-section">
+                    <h3>Section 2: Answer All Questions</h3>
+                    <form method="post" action="{% url 'results_01' %}" id="quiz-form" class="questionss">
+                        {% csrf_token %}
+                        <input type="hidden" name="quiz_type_01" value="{{ selected_quiz_type_id }}">
+                        <button type="submit" class="submit-button">Submit Answers</button>
+                        {% for question in questionss %}
+                            <div class="question_01">
+                                <p class="question_01-text">{{ question.question_text }}</p>
+                                {% for answer in question.answer_set.all %}
+                                    <label class="answer-label">
+                                        <input type="radio" name="question_01{{ question.id }}" value="{{ answer.id }}">
+                                        {{ answer.answer_text }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>
+            {% else %}
+                <div class="quiz-section">
+                    <p>No questions available for the selected quiz type.</p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

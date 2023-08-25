@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin BackUp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        h3, h4 {
+            color: #555;
+            margin-top: 15px;
+        }
+        ul {
+            color: #777;
+            list-style: none;
+            padding-left: 0;
+        }
+        form {
+            margin-top: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 200px;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        button a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to Admin BackUp</h2>
+
+    <h3>App Balance: Rw{{ QuizBalance }}</h3>
+    <h4>Admin Balance: Rw{{ AdminBalance }}</h4>
+    <h4>Admin Deposits</h4>
+    <ul>
+        <li>Amount: Rw{{ admindeposits }} - Transaction date : {{ admindeposit.timestamp }}</li>
+    </ul>
+
+    <h4>Admin Withdrawals</h4>
+    <ul>
+        <li>Amount: Rw{{ adminwithdraws }} - Transaction date : {{ adminwithdraws.timestamp }}</li>
+    </ul>
+    
+    <h4>Admin Deposit Money</h4>
+    <form method="post" action="{% url 'adminback' %}">
+        {% csrf_token %}
+        <label for="admindeposit_amount">Amount to Deposit:</label>
+        <input type="number" step="0.01" name="admindeposit_amount" id="admindeposit_amount" required>
+        <input type="submit" value="AdminDeposit">
+    </form>
+
+    <h4>Withdraw Money</h4>
+    <form method="post" action="{% url 'adminback' %}">
+        {% csrf_token %}
+        <label for="adminwithdraw_amount">Amount to Withdraw:</label>
+        <input type="number" step="0.01" name="adminwithdraw_amount" id="adminwithdraw_amount" required>
+        <input type="submit" value="AdminWithdraw">
+    </form>
+    
+    <button>
+        <a href="{% url 'admin_dashboard'%}">Admin Dashboard</a>
+    </button>
+</body>
+</html>

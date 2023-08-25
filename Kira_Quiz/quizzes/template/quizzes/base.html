@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Quiz App{% endblock %}</title>
+    <!-- Add your CSS links here -->
+</head>
+<body>
+    <header>
+        <h1>Quiz App</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'quiz_view' %}">Quiz</a></li>
+                <!-- Add other navigation links if needed -->
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Add your JavaScript links here -->
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  /* styles.css */
+
+/* new */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #022019;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20cm;
+}
+
+.form-container {
+    background-color: rgb(233, 225, 232);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: 19cm;
+    margin-top: 25cm;
+    margin-bottom: 20cm;
+    
+  
+}
+form label {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 0.%;
+    
+
+    
+    
+
+}
+form input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    transition: border-color 0.3s;
+    
+
+}
+
+form input.error {
+    border-color: #FF6347;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error-msg {
+    color: #FF6347;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.side-content {
+    background-color: #007BFF;
+    color: white;
+    padding: 100px;
+    text-align: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.side-content h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.side-content p {
+    font-size: 16px;
+}
+
+/* Rest of your existing styles */
+.indicator {
+  margin-left: 10px;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.username-instruction,
+.username-exists,
+.password-instruction,
+.password-strength,
+.password-match {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+}
+.nav {
+  max-width: fit-content;
+  margin-left: 20cm;
+}
+
+
+
+
+  /* Your existing styles */
+  .indicator {
+    margin-left: 10px;
+  }
+  .error {
+    border: 1px solid red;
+  }
+</style>
+<title>Registration Form</title>
+</head>
+<body>
+  <nav>
+    <p>alrereeee</p>
+    <button type="">login</button>
+  </nav>
+  <div class="container">
+    <div class="form-container">
+      <h2>Register</h2>
+<form method="post">
+  {% csrf_token %}
+ 
+  <label for="id_first_name">First Name:</label>
+  <input type="text" id="id_first_name" name="first_name" required>
+  <label for="id_last_name">Last Name:</label>
+  <input type="text" id="id_last_name" name="last_name" required>
+  <label for="id_username">Username:</label>
+  <input type="text" id="id_username" name="username" required>
+  <span class="username-instruction">Username must be at least 5 characters long.</span>
+  <span class="username-exists" style="color: red;"></span>
+  <label for="id_email">Email:</label>
+  <input type="email" id="id_email" name="email" required>
+  <label for="id_password1">Password:</label>
+  <input type="password" id="id_password1" name="password1" required>
+  <span class="password-instruction">Password must be at least 8 characters long and include a mix of letters, numbers, and symbols.</span>
+  <span class="password-strength" style="color: gray;"></span>
+  <span class="indicator"></span>
+  <label for="id_password2">Confirm Password:</label>
+  <input type="password" id="id_password2" name="password2" required>
+  <span class="password-match" style="color: red;"></span>
+  <button type="submit">Register</button>
+</form>
+      
+    </div>
+    <div class="side-content">
+      <h1>Welcome to Our Community</h1>
+      <p>Join us and Make money with your Knowledge.</p>
+  </div>
+  </div>
+      
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.querySelector('form');
+      const usernameInput = document.getElementById('id_username');
+      const passwordInput = document.getElementById('id_password1');
+      const confirmPasswordInput = document.getElementById('id_password2');
+      const usernameInstruction = document.querySelector('.username-instruction');
+      const passwordInstruction = document.querySelector('.password-instruction');
+      const passwordMatchMessage = document.querySelector('.password-match');
+      const passwordStrengthIndicator = document.querySelector('.password-strength');
+
+      // Function to check password strength
+      function checkPasswordStrength(password) {
+        const weak = "Weak";
+        const medium = "Medium";
+        const strong = "Strong";
+
+        if (password.length < 8) {
+          return weak;
+        }
+
+        const hasLetters = /[a-zA-Z]/.test(password);
+        const hasNumbers = /\d/.test(password);
+        const hasSymbols = /[@$!%*?&]/.test(password);
+
+        if (hasLetters && hasNumbers && hasSymbols) {
+          return strong;
+        }
+
+        if ((hasLetters && hasNumbers) || (hasLetters && hasSymbols) || (hasNumbers && hasSymbols)) {
+          return medium;
+        }
+
+        return weak;
+      }
+
+      passwordInput.addEventListener('input', function () {
+        const passwordStrength = checkPasswordStrength(passwordInput.value);
+
+        if (passwordStrength === "Weak") {
+          passwordStrengthIndicator.style.color = 'red';
+        } else if (passwordStrength === "Medium") {
+          passwordStrengthIndicator.style.color = 'orange';
+        } else if (passwordStrength === "Strong") {
+          passwordStrengthIndicator.style.color = 'green';
+        }
+
+        passwordStrengthIndicator.textContent = `Password Strength: ${passwordStrength}`;
+      });
+
+      // Other event listeners...
+      usernameInput.addEventListener('input', function () {
+        const usernameExists = false; // Replace with actual check
+        
+        if (usernameInput.value.length >= 5) {
+          usernameInstruction.style.color = 'green';
+          usernameInstruction.textContent = 'Username must be at least 5 characters long.';
+          
+          if (usernameExists) {
+            usernameInstruction.style.color = 'red';
+            usernameExistsMessage.textContent = 'Username already exists.';
+          } else {
+            usernameExistsMessage.textContent = '';
+          }
+        } else {
+          usernameInstruction.style.color = 'red';
+          usernameExistsMessage.textContent = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+

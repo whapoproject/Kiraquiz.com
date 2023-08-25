@@ -1,0 +1,45 @@
+{% extends  'home/base.html' %}
+{% load static %}
+
+{% block content %}
+    <title>Welcome to the KIRA Quiz</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the KIRA Quiz</h1>
+        <h4> The more you learn, The more you earn</h4>
+    </div>
+    <div class="container">
+        <p><b>AMABWIRIZA</b></p>
+        <p>Kuba ufite imyaka 18 kuzamura</p>
+        <p>Kuba wizeye internet yawe</p>
+        <p>Gukoresha neza igihe cyawe</p>
+        <p>Kuba uba uri muri Mobile money</p>
+        <p>Iyo utsinze ukubirwa incuro icumi bitewe nikiciro urimo nayo gisaba</p>
+    </div>
+    <div class="container">
+        <button>
+            <a href="{% url 'user_register' %}">Start</a>
+        </button>
+        <script>
+            // Add your JavaScript code here
+document.addEventListener("DOMContentLoaded", function() {
+    const startButton = document.querySelector("button");
+
+    startButton.addEventListener("click", function() {
+        alert("You're going to Register or Login ");
+    });
+});
+
+        </script>
+    </div>
+  
+</body>
+<footer>
+    <div>
+        <p>&copy; 2023 KIRA Quiz. All rights reserved.</p>
+        <p>Contact us: info@kiraquiz.com</p>
+    </div>
+</footer>
+</html>
+{% endblock %}

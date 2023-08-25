@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        h3, h4 {
+            color: #555;
+        }
+        p {
+            margin-bottom: 10px;
+            color: #777;
+        }
+        button {
+            margin-top: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button a {
+            text-decoration: none;
+            color: #fff;
+        }
+        button:hover {
+            background-color: #258cd1;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>Welcome to Admin Dashboard</h2>
+        <p>Username: {{ adminuser.user.username }}</p>
+
+        <h3>User Detector</h3>
+        <h4>New Users in the Last 30 Days: {{ admin_stats.new_users_count }}</h4>
+        <h4>Active Users: {{ admin_stats.active_users_count }}</h4>
+        <h4>User Deposits: Rw{{ admin_stats.user_deposits }}</h4>
+        <h4>User Withdrawals: Rw{{ admin_stats.user_withdraws }}</h4>
+        <h4>Total Balance of All Users: Rw{{ all_users_balance }}</h4>
+
+        <h3>Admin Account Side</h3>
+        <h4>Users pay for Quiz: Rw{{ admin_stats.user_pay_quizzes }}</h4>
+        <h4>Users paid for Quiz: Rw{{ admin_stats.user_paid_quizzes }}</h4>
+        <h4>Admin Profit: Rw{{ profite_from_users }}</h4>
+
+        <button>
+            <a href="{% url 'adminback'%}">Admin Backup</a>
+        </button>
+
+        <button>
+            <a href="{% url 'welcomepage'%}">Logout</a>
+        </button>
+    </div>
+</body>
+</html>
