@@ -27,6 +27,9 @@ urlpatterns = [
 
     path('real_account/',  views.real_account, name='real_account'),
 
+    path('pay_dep/', views.pay_dep, name='pay_dep'),
+    path('pay_with/', views.pay_with, name='pay_with'),
+
     path('transactions/paid_quizzes/', views.paid_quizzes, name='paid_quizzes'),
     path('transactions/pay_quizzes/', views.pay_quizzes, name='pay_quizzes'),
 

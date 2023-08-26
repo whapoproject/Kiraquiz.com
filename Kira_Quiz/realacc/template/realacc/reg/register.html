@@ -1,5 +1,5 @@
 
-
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,7 +139,9 @@ button:hover {
 <body>
   <nav>
     <p>alrereeee</p>
-    <button type="">login</button>
+    <button>
+      <a href="{% url 'user_login'%}">login</a>
+    </button>
   </nav>
   <div class="container">
     <div class="form-container">
@@ -178,6 +180,398 @@ button:hover {
 
 
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.querySelector('form');
+      const usernameInput = document.getElementById('id_username');
+      const passwordInput = document.getElementById('id_password1');
+      const confirmPasswordInput = document.getElementById('id_password2');
+      const usernameInstruction = document.querySelector('.username-instruction');
+      const passwordInstruction = document.querySelector('.password-instruction');
+      const passwordMatchMessage = document.querySelector('.password-match');
+      const passwordStrengthIndicator = document.querySelector('.password-strength');
+
+      // Function to check password strength
+      function checkPasswordStrength(password) {
+        const weak = "Weak";
+        const medium = "Medium";
+        const strong = "Strong";
+
+        if (password.length < 8) {
+          return weak;
+        }
+
+        const hasLetters = /[a-zA-Z]/.test(password);
+        const hasNumbers = /\d/.test(password);
+        const hasSymbols = /[@$!%*?&]/.test(password);
+
+        if (hasLetters && hasNumbers && hasSymbols) {
+          return strong;
+        }
+
+        if ((hasLetters && hasNumbers) || (hasLetters && hasSymbols) || (hasNumbers && hasSymbols)) {
+          return medium;
+        }
+
+        return weak;
+      }
+
+      passwordInput.addEventListener('input', function () {
+        const passwordStrength = checkPasswordStrength(passwordInput.value);
+
+        if (passwordStrength === "Weak") {
+          passwordStrengthIndicator.style.color = 'red';
+        } else if (passwordStrength === "Medium") {
+          passwordStrengthIndicator.style.color = 'orange';
+        } else if (passwordStrength === "Strong") {
+          passwordStrengthIndicator.style.color = 'green';
+        }
+
+        passwordStrengthIndicator.textContent = `Password Strength: ${passwordStrength}`;
+      });
+
+      // Other event listeners...
+      usernameInput.addEventListener('input', function () {
+        const usernameExists = false; // Replace with actual check
+        
+        if (usernameInput.value.length >= 5) {
+          usernameInstruction.style.color = 'green';
+          usernameInstruction.textContent = 'Username must be at least 5 characters long.';
+          
+          if (usernameExists) {
+            usernameInstruction.style.color = 'red';
+            usernameExistsMessage.textContent = 'Username already exists.';
+          } else {
+            usernameExistsMessage.textContent = '';
+          }
+        } else {
+          usernameInstruction.style.color = 'red';
+          usernameExistsMessage.textContent = '';
+        }
+      });
+    });
+  </script>
+</body>
+
+<footer class="footer">
+  <div class="footer-links">
+      <a href="">About Us</a>
+      <a href="">Contact Us</a>
+      <a href="#">Terms and Conditions</a>
+      <a href="#">Privacy Policy</a>
+  </div>
+  <div class="footer-cookies">
+      <p>Preference Cookies: We use preference cookies to remember your preferences and settings.</p>
+  </div>
+  <p>&copy; 2023 Your Website. All rights reserved.</p>
+</footer>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    /* Reset styles and common styling */
+
+/* Header styles */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #022019;
+    }
+
+
+    .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin-bottom: 40px; /* Add some space between container and footer */
+  }
+
+    .form-container {
+      background-color: rgb(233, 225, 232);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      max-width: 100%; /* Ensure responsiveness */
+    }
+
+form label {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 0%;
+}
+
+form input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    transition: border-color 0.3s;
+}
+
+/* ... (other styles) ... */
+
+.error-msg {
+    color: #FF6347;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.side-content {
+    background-color: #007BFF;
+    color: white;
+    padding: 100px;
+    text-align: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.side-content h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.side-content p {
+    font-size: 16px;
+}
+
+/* Footer styles */
+
+
+  .footer {
+    background-color: #f2f2f206;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    margin-top: 40px; /* Add some space between footer and content above */
+  }
+.footer-links a {
+    margin: 5px;
+    text-decoration: none;
+    color: #007BFF;
+}
+.footer-cookies p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #777;
+}
+
+/* Password strength indicator */
+.password-strength {
+    font-size: 14px;
+}
+.password-strength.indicator {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+/* Navigation */
+.nav {
+    display: flex; /* Display children in a row */
+    align-items: center; /* Align items vertically */
+    margin-left: 20cm;
+  }
+
+  .nav h5 {
+    margin-right: 10px; /* Add some spacing between text and link */
+    color: white;
+  }
+
+  .nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 3px;
+    background-color: #007bff29;
+    transition: background-color 0.3s;
+  }
+.nav a:hover {
+    background-color: #a9089b6b;
+}
+/* Styles for header, body, and footer that apply to all screen sizes */
+/* Media queries for responsive design */
+
+/* Small devices (up to 767px) */
+@media (max-width: 767px) {
+  header {
+    padding: 10px;
+    font-size: 18px;
+  }
+  
+  body {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  footer {
+    padding: 5px;
+    font-size: 14px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+  }
+  
+  .side-content {
+    padding: 10px;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin-top: 10px;
+  }
+}
+
+
+/* Medium devices (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  header {
+    font-size: 18px;
+    padding: 15px;
+  }
+  
+  body {
+    font-size: 16px;
+    padding: 15px;
+  }
+  
+  footer {
+    font-size: 14px;
+    padding: 8px;
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .form-container {
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    flex: 1;
+  }
+  
+  .side-content {
+    padding: 20px;
+    background-color: #f0f0f0;
+    margin-left: 20px;
+  }
+}
+
+/* Large devices (992px and above) */
+@media (min-width: 992px) {
+  header {
+    font-size: 24px;
+    padding: 30px;
+  }
+  
+  body {
+    font-size: 18px;
+    padding: 30px;
+  }
+  
+  footer {
+    font-size: 16px;
+    padding: 15px;
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .form-container {
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    flex: 1;
+  }
+  
+  .side-content {
+    padding: 30px;
+    background-color: #f0f0f0;
+    margin-left: 30px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  
+  <nav class="nav">
+    <h5>Already have an account?</h5>
+    <a href="{% url 'user_login'%}">Login</a> 
+    
+  </nav>
+  <div class="container">
+    <div class="form-container">
+      <h2>Register</h2>
+      <form method="post">
+        {% csrf_token %}
+        <label for="id_first_name">First Name:</label>
+        <input type="text" id="id_first_name" name="first_name" required>
+        <label for="id_last_name">Last Name:</label>
+        <input type="text" id="id_last_name" name="last_name" required>
+        <label for="id_username">Username:</label>
+        <input type="text" id="id_username" name="username" required>
+        <span class="error-msg username-instruction">Username must be at least 5 characters long.</span>
+        <span class="error-msg username-exists" style="color: red;"></span>
+        <label for="id_email">Email:</label>
+        <input type="email" id="id_email" name="email" required>
+        <label for="id_password1">Password:</label>
+        <input type="password" id="id_password1" name="password1" required>
+        <span class="error-msg password-instruction">Password must be at least 8 characters long and include a mix of letters, numbers, and symbols.</span>
+        <span class="password-strength indicator" style="color: gray;"></span>
+        <label for="id_password2">Confirm Password:</label>
+        <input type="password" id="id_password2" name="password2" required>
+        <span class="error-msg password-match" style="color: red;"></span>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+    <div class="side-content">
+      <h1>Welcome to Our Community</h1>
+      <p>Join us and Make money with your Knowledge.</p>
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#">About Us</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Terms and Conditions</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div class="footer-cookies">
+      <p>Preference Cookies: We use preference cookies to remember your preferences and settings.</p>
+    </div>
+    <p>&copy; 2023 kiraquiz.com. All rights reserved.</p>
+  </footer>
+  
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const form = document.querySelector('form');
