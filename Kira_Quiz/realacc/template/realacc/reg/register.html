@@ -415,34 +415,47 @@ form input {
     padding: 10px;
     font-size: 18px;
   }
-  
-  body {
-    padding: 10px;
-    font-size: 16px;
-  }
-  
+
   footer {
     padding: 5px;
     font-size: 14px;
   }
+
   .container {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center the content horizontally */
+    margin-top: 10px; /* Add some spacing between login and form */
   }
-  
+
   .form-container {
-    padding: 20px;
-    background-color: #fff;
+    padding: 5px;
+    background-color: #3480a3;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     margin-bottom: 10px;
+    width: 80%; /* Adjust the width as needed */
+    max-width: 300px; /* Add a max width to the form container */
   }
-  
-  .side-content {
-    padding: 10px;
+
+  .form-container input {
+    padding: 2px;
+    background-color: #c2d7e0;
+    height: 0.2cm;
+    margin-bottom: 10px;
+  }
+
+  .nav {
     text-align: center;
-    background-color: #f0f0f0;
-    margin-top: 10px;
+    background-color: #021118;
+    padding: 5px; /* Add some padding for visibility */
+  }
+
+  /* Adjust styles for the login link */
+  .nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
   }
 }
 
@@ -505,18 +518,19 @@ form input {
   }
   
   .form-container {
-    padding: 40px;
-    background-color: #fff;
+    padding: 5px;
+    background-color: #c9d8df;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    flex: 1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
   }
-  
-  .side-content {
-    padding: 30px;
-    background-color: #f0f0f0;
-    margin-left: 30px;
+  .form-container input {
+    padding: 2px;
+    background-color: #c2d7e0;
+    height: 0.5cm;
+    margin-bottom: 10px;
   }
+ 
 }
 
   </style>
@@ -552,10 +566,6 @@ form input {
         <span class="error-msg password-match" style="color: red;"></span>
         <button type="submit">Register</button>
       </form>
-    </div>
-    <div class="side-content">
-      <h1>Welcome to Our Community</h1>
-      <p>Join us and Make money with your Knowledge.</p>
     </div>
   </div>
   

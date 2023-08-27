@@ -1,0 +1,1 @@
+web:gunicorn Kira_Quiz .wsgi
